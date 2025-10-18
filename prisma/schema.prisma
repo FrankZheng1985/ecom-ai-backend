@@ -1,0 +1,88 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 记录您的两个独立站信息
+model Site {
+  id        String   @id @default(cuid())
+  name      String   @unique // "zenbreeze" or "sogoodtea"
+  platform  String   // "wordpress" or "strikingly"
+  url       String
+  apiKey    String?
+  apiSecret String?
+  orders    Order[]
+  products  Product[]
+  customers Customer[]
+}
+
+// 统一的订单模型
+model Order {
+  id            String   @id @default(cuid())
+  siteId        String
+  site          Site     @relation(fields: [siteId], references: [id])
+  originalId    String   // 在原平台的订单ID
+  customerEmail String
+  customer      Customer @relation(fields: [customerEmail], references: [email])
+  totalAmount   Float
+  status        String
+  items         Json     // 存储商品详情
+  createdAt     DateTime
+  updatedAt     DateTime @updatedAt
+
+  @@unique([originalId, siteId])
+}
+
+// 统一的客户模型
+model Customer {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  name            String?
+  phone           String?
+  siteId          String   // 客户首次来源的站点
+  site            Site     @relation(fields: [siteId], references: [id])
+  orders          Order[]
+  tags            String? // 客户标签，如 "high-value", "loyal" (JSON字符串)
+  lifetimeValue   Float    @default(0) // 客户生命周期价值
+  createdAt       DateTime @default(now())
+}
+
+// 统一的产品模型
+model Product {
+  id          String   @id @default(cuid())
+  siteId      String
+  site        Site     @relation(fields: [siteId], references: [id])
+  originalId  String   // 在原平台的产品ID
+  name        String
+  description String?
+  price       Float
+  stock       Int
+  category    String?
+  images      String? // 产品图片 (JSON字符串)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([originalId, siteId])
+}
+
+// 统一的广告活动数据模型
+model AdInsight {
+  id            String   @id @default(cuid())
+  platform      String   // "facebook" or "google"
+  campaignId    String
+  campaignName  String
+  spend         Float
+  impressions   Int
+  clicks        Int
+  conversions   Int
+  revenue       Float?
+  roi           Float?
+  date          DateTime
+  createdAt     DateTime @default(now())
+}
