@@ -97,40 +97,40 @@ node demo.js
 ### 订单查询
 ```bash
 # 查询所有订单
-curl "http://localhost:3000/api/dify/orders"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/orders"
 
 # 查询已完成的订单
-curl "http://localhost:3000/api/dify/orders?status=completed"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/orders?status=completed"
 
 # 查询特定站点的订单
-curl "http://localhost:3000/api/dify/orders?site=zenbreeze"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/orders?site=zenbreeze"
 
 # 查询特定客户的订单
-curl "http://localhost:3000/api/dify/orders?customer_email=john@example.com"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/orders?customer_email=john@example.com"
 ```
 
 ### 客户查询
 ```bash
 # 查询所有客户
-curl "http://localhost:3000/api/dify/customers"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/customers"
 
 # 查询高价值客户
-curl "http://localhost:3000/api/dify/customers?tags=high-value"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/customers?tags=high-value"
 
 # 查询生命周期价值大于1000的客户
-curl "http://localhost:3000/api/dify/customers?min_lifetime_value=1000"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/customers?min_lifetime_value=1000"
 ```
 
 ### 产品查询
 ```bash
 # 查询所有产品
-curl "http://localhost:3000/api/dify/products"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/products"
 
 # 查询茶具类产品
-curl "http://localhost:3000/api/dify/products?category=tea-sets"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/products?category=tea-sets"
 
 # 查询价格在20-100之间的产品
-curl "http://localhost:3000/api/dify/products?min_price=20&max_price=100"
+curl "https://unexcised-brycen-weaponless.ngrok-free.dev/api/dify/products?min_price=20&max_price=100"
 ```
 
 ## 🔑 配置真实数据源
