@@ -5,7 +5,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -48,7 +48,7 @@ model Customer {
   siteId          String   // 客户首次来源的站点
   site            Site     @relation(fields: [siteId], references: [id])
   orders          Order[]
-  tags            String[] // 客户标签，如 "high-value", "loyal"
+  tags            String? // 客户标签，如 "high-value", "loyal"
   lifetimeValue   Float    @default(0) // 客户生命周期价值
   createdAt       DateTime @default(now())
 }
@@ -64,7 +64,7 @@ model Product {
   price       Float
   stock       Int
   category    String?
-  images      String[] // 产品图片
+  images      String? // 产品图片
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

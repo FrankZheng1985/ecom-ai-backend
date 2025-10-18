@@ -41,7 +41,7 @@ async function addTestData() {
         name: 'John Smith',
         phone: '+1234567890',
         siteId: zenbreezeSite.id,
-        tags: ['high-value', 'loyal'],
+        tags: '["high-value", "loyal"]',
         lifetimeValue: 1250.50
       },
       {
@@ -49,7 +49,7 @@ async function addTestData() {
         name: 'Mary Johnson',
         phone: '+1234567891',
         siteId: sogoodteaSite.id,
-        tags: ['new-customer'],
+        tags: '["new-customer"]',
         lifetimeValue: 89.99
       },
       {
@@ -57,7 +57,7 @@ async function addTestData() {
         name: 'David Brown',
         phone: '+1234567892',
         siteId: zenbreezeSite.id,
-        tags: ['vip', 'repeat-buyer'],
+        tags: '["vip", "repeat-buyer"]',
         lifetimeValue: 2100.75
       }
     ];
@@ -83,7 +83,7 @@ async function addTestData() {
         price: 89.99,
         stock: 50,
         category: 'tea-sets',
-        images: ['https://example.com/tea-set-1.jpg', 'https://example.com/tea-set-2.jpg']
+        images: '["https://example.com/tea-set-1.jpg", "https://example.com/tea-set-2.jpg"]'
       },
       {
         originalId: 'prod_002',
@@ -93,7 +93,7 @@ async function addTestData() {
         price: 24.99,
         stock: 100,
         category: 'green-tea',
-        images: ['https://example.com/green-tea.jpg']
+        images: '["https://example.com/green-tea.jpg"]'
       },
       {
         originalId: 'prod_003',
@@ -103,7 +103,7 @@ async function addTestData() {
         price: 45.50,
         stock: 25,
         category: 'accessories',
-        images: ['https://example.com/accessories.jpg']
+        images: '["https://example.com/accessories.jpg"]'
       }
     ];
 
