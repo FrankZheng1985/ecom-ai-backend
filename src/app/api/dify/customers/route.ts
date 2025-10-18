@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     }
     
     if (tags) {
-      where.tags = { has: tags };
+      where.tags = { contains: tags };
     }
     
     if (minLifetimeValue) {
