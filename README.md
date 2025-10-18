@@ -1,179 +1,298 @@
-# 智能体数据中台
+# 🤖 智能体数据中台
 
-为跨境独立站智能体提供统一的数据服务，连接WordPress和Strikingly平台。
+> 为跨境独立站构建的AI智能体数据中台，支持WordPress和Strikingly平台数据统一管理
 
-## 功能特性
+## ✨ 功能特性
 
-- 🔄 **数据同步**: 自动同步来自WordPress和Strikingly的订单、客户和产品数据
-- 🤖 **智能体支持**: 为Dify智能体提供统一的API接口
-- 📊 **实时监控**: 实时监控系统状态，提供健康检查和统计信息
-- 🔒 **安全可靠**: 支持API密钥验证和Webhook签名验证
+- 🔄 **数据统一化**: 整合WordPress和Strikingly平台数据
+- 🤖 **AI智能体支持**: 为Dify提供标准化API接口
+- 📊 **实时数据同步**: WordPress API拉取 + Strikingly Webhook推送
+- 🔍 **智能查询**: 支持多条件筛选和复杂查询
+- 📈 **数据分析**: 订单、客户、产品数据统计分析
+- 🚀 **生产就绪**: Vercel部署，支持高并发访问
 
-## 技术栈
+## 🚀 快速开始
 
-- **Next.js 15**: React框架，提供API路由
-- **Prisma**: 现代化ORM，数据库操作
-- **Supabase**: PostgreSQL数据库服务
-- **TypeScript**: 类型安全的JavaScript
-- **Tailwind CSS**: 现代化UI样式
-
-## 快速开始
-
-### 1. 环境配置
-
-1. 复制环境变量文件：
+### 方法1: 使用启动脚本（推荐）
 ```bash
-cp .env.example .env
+./start.sh
 ```
 
-2. 配置数据库连接：
-```env
-DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@[YOUR-SUBABASE-HOST]:5432/postgres"
-```
-
-3. 配置WooCommerce API（可选）：
-```env
-WC_CONSUMER_KEY="your_woocommerce_consumer_key"
-WC_CONSUMER_SECRET="your_woocommerce_consumer_secret"
-```
-
-4. 配置Strikingly Webhook（可选）：
-```env
-STRICKINGLY_WEBHOOK_SECRET="your_strikingly_webhook_secret"
-```
-
-### 2. 数据库设置
-
-1. 推送数据库模式：
+### 方法2: 手动启动
 ```bash
+# 1. 安装依赖
+npm install
+
+# 2. 初始化数据库
 npx prisma db push
-```
 
-2. 生成Prisma客户端：
-```bash
-npx prisma generate
-```
+# 3. 添加测试数据
+node add-test-data.js
 
-### 3. 启动开发服务器
-
-```bash
+# 4. 启动开发服务器
 npm run dev
 ```
 
-访问 http://localhost:3000 查看应用。
+## 📊 API端点
 
-## API 接口
+### 基础信息
+- **本地地址**: http://localhost:3000
+- **API文档**: http://localhost:3000/api-docs
+- **健康检查**: http://localhost:3000/api/health
 
-### 健康检查
-- `GET /api/health` - 系统状态和统计信息
+### 核心API
+| 功能 | 端点 | 方法 | 描述 |
+|------|------|------|------|
+| 健康检查 | `/api/health` | GET | 系统状态和统计信息 |
+| 订单查询 | `/api/dify/orders` | GET | 查询订单数据 |
+| 客户查询 | `/api/dify/customers` | GET | 查询客户数据 |
+| 产品查询 | `/api/dify/products` | GET | 查询产品数据 |
 
-### 数据同步
-- `GET /api/sync/wordpress` - 从WordPress同步订单数据
+## 🧪 测试验证
 
-### Webhook
-- `POST /api/webhook/strikingly` - 接收Strikingly订单数据
+### 运行API测试
+```bash
+node test-dify-apis.js
+```
 
-### Dify智能体接口
-- `GET /api/dify/orders` - 订单查询接口
-- `GET /api/dify/customers` - 客户查询接口
-- `GET /api/dify/products` - 产品查询接口
+### 测试结果示例
+```
+🚀 开始测试Dify API端点...
+==================================================
 
-## 部署
+📊 1. 健康检查
+✅ /api/health - 成功
+   数据库状态: connected
+   站点数量: 2
+   订单数量: 3
+   客户数量: 3
+   产品数量: 3
+
+📦 2. 订单查询测试
+✅ /api/dify/orders - 成功
+   总订单数: 3
+✅ /api/dify/orders - 成功
+   已完成订单: 2
+✅ /api/dify/orders - 成功
+   Zenbreeze订单: 2
+
+👥 3. 客户查询测试
+✅ /api/dify/customers - 成功
+   总客户数: 3
+✅ /api/dify/customers - 成功
+   高价值客户: 1
+✅ /api/dify/customers - 成功
+   Sogoodtea客户: 1
+
+🛍️ 4. 产品查询测试
+✅ /api/dify/products - 成功
+   总产品数: 3
+✅ /api/dify/products - 成功
+   茶具产品: 1
+✅ /api/dify/products - 成功
+   有库存产品: 3
+
+🔍 5. 复杂查询测试
+✅ /api/dify/orders - 成功
+   复杂查询订单: 2
+✅ /api/dify/products - 成功
+   价格范围产品: 3
+
+==================================================
+🎉 API测试完成！
+```
+
+## 🤖 Dify集成
+
+### 1. 创建智能体
+1. 登录 [Dify平台](https://dify.ai)
+2. 创建新的"智能体"应用
+3. 命名为"电商数据助手"
+
+### 2. 配置API工具
+按照 `DIFY_INTEGRATION.md` 详细指南配置：
+- 订单查询工具
+- 客户查询工具
+- 产品查询工具
+
+### 3. 设置提示词
+使用提供的智能体提示词模板，让AI助手能够：
+- 理解电商业务场景
+- 正确调用API工具
+- 提供专业的数据分析
+
+## 📁 项目结构
+
+```
+ecom-ai-backend/
+├── src/app/api/              # API路由
+│   ├── health/               # 健康检查
+│   ├── dify/                 # Dify专用API
+│   │   ├── orders/           # 订单查询
+│   │   ├── customers/        # 客户查询
+│   │   └── products/         # 产品查询
+│   ├── sync/wordpress/       # WordPress同步
+│   └── webhook/strikingly/   # Strikingly Webhook
+├── prisma/                   # 数据库配置
+│   └── schema.prisma         # 数据模型
+├── docs/                     # 文档
+│   ├── DIFY_INTEGRATION.md   # Dify集成指南
+│   └── FINAL_SETUP.md        # 完整配置说明
+├── scripts/                  # 脚本
+│   ├── start.sh              # 快速启动脚本
+│   ├── test-dify-apis.js     # API测试脚本
+│   └── add-test-data.js      # 测试数据脚本
+└── README.md                 # 项目说明
+```
+
+## 🗄️ 数据模型
+
+### 核心实体
+- **Site**: 站点信息 (zenbreeze, sogoodtea)
+- **Order**: 订单数据 (状态、金额、客户等)
+- **Customer**: 客户信息 (标签、生命周期价值等)
+- **Product**: 产品信息 (分类、价格、库存等)
+- **AdInsight**: 广告数据 (预留扩展)
+
+### 数据关系
+```
+Site 1:N Order
+Site 1:N Customer  
+Site 1:N Product
+Customer 1:N Order
+```
+
+## 🔧 开发命令
+
+```bash
+# 开发
+npm run dev              # 启动开发服务器
+npm run build            # 构建生产版本
+npm run start            # 启动生产服务器
+
+# 数据库
+npx prisma db push       # 同步数据库模式
+npx prisma studio        # 打开数据库管理界面
+
+# 测试
+npm run test:api         # 测试API功能
+node test-dify-apis.js   # 运行Dify API测试
+node add-test-data.js    # 添加测试数据
+```
+
+## 🌐 生产部署
 
 ### Vercel部署
-
-1. 将代码推送到GitHub仓库
-2. 在Vercel中导入项目
-3. 配置环境变量
-4. 部署
+- **生产URL**: https://ecom-ai-backend-mu.vercel.app
+- **自动部署**: 推送到main分支自动触发
+- **环境变量**: 需要在Vercel控制台配置
 
 ### 环境变量配置
-
-在Vercel项目设置中添加以下环境变量：
-- `DATABASE_URL`
-- `WC_CONSUMER_KEY`（可选）
-- `WC_CONSUMER_SECRET`（可选）
-- `STRICKINGLY_WEBHOOK_SECRET`（可选）
-
-## 使用指南
-
-### 1. 配置WordPress同步
-
-1. 在WordPress后台创建WooCommerce REST API密钥
-2. 将密钥配置到环境变量中
-3. 访问 `/api/sync/wordpress` 同步数据
-
-### 2. 配置Strikingly Webhook
-
-1. 在Strikingly开发者设置中配置Webhook URL
-2. 设置Webhook URL为：`https://your-domain.com/api/webhook/strikingly`
-3. 配置签名验证密钥
-
-### 3. 在Dify中使用
-
-在Dify的HTTP请求节点中调用API：
-
-```javascript
-// 获取订单数据
-GET https://your-domain.com/api/dify/orders?site=zenbreeze&start_date=2025-01-01
-
-// 获取客户数据
-GET https://your-domain.com/api/dify/customers?site=sogoodtea&min_lifetime_value=100
-
-// 获取产品数据
-GET https://your-domain.com/api/dify/products?category=tea&in_stock=true
+```env
+DATABASE_URL=postgresql://...
+WC_CONSUMER_KEY=your_woocommerce_key
+WC_CONSUMER_SECRET=your_woocommerce_secret
+STRICKINGLY_WEBHOOK_SECRET=your_webhook_secret
 ```
 
-## 数据模型
+## 📊 使用示例
 
-### 站点 (Site)
-- 记录不同平台的基本信息
-- 支持WordPress和Strikingly
+### 查询订单
+```bash
+# 查询所有订单
+curl "http://localhost:3000/api/dify/orders"
 
-### 订单 (Order)
-- 统一的订单数据结构
-- 包含客户信息和商品详情
+# 查询已完成的订单
+curl "http://localhost:3000/api/dify/orders?status=completed"
 
-### 客户 (Customer)
-- 客户基本信息
-- 生命周期价值计算
-- 标签系统
-
-### 产品 (Product)
-- 产品基本信息
-- 库存管理
-- 分类系统
-
-### 广告洞察 (AdInsight)
-- 广告活动数据
-- ROI计算
-- 多平台支持
-
-## 开发
-
-### 项目结构
-
-```
-src/
-├── app/
-│   ├── api/
-│   │   ├── dify/          # Dify智能体接口
-│   │   ├── sync/          # 数据同步接口
-│   │   ├── webhook/       # Webhook接收
-│   │   └── health/        # 健康检查
-│   ├── api-docs/          # API文档页面
-│   └── page.tsx           # 主页
-├── prisma/
-│   └── schema.prisma      # 数据库模式
-└── ...
+# 查询特定站点的订单
+curl "http://localhost:3000/api/dify/orders?site=zenbreeze"
 ```
 
-### 添加新的数据源
+### 查询客户
+```bash
+# 查询所有客户
+curl "http://localhost:3000/api/dify/customers"
 
-1. 在Prisma schema中定义新的站点类型
-2. 创建对应的同步API
-3. 更新Dify接口以支持新数据源
+# 查询高价值客户
+curl "http://localhost:3000/api/dify/customers?tags=high-value"
 
-## 许可证
+# 查询生命周期价值大于1000的客户
+curl "http://localhost:3000/api/dify/customers?min_lifetime_value=1000"
+```
 
-MIT License
+### 查询产品
+```bash
+# 查询所有产品
+curl "http://localhost:3000/api/dify/products"
+
+# 查询茶具类产品
+curl "http://localhost:3000/api/dify/products?category=tea-sets"
+
+# 查询价格在20-100之间的产品
+curl "http://localhost:3000/api/dify/products?min_price=20&max_price=100"
+```
+
+## 🛠️ 故障排除
+
+### 常见问题
+
+1. **端口被占用**
+   ```bash
+   # 查找占用3000端口的进程
+   lsof -ti:3000
+   # 杀死进程
+   kill -9 $(lsof -ti:3000)
+   ```
+
+2. **数据库连接失败**
+   ```bash
+   # 重新初始化数据库
+   npx prisma db push
+   ```
+
+3. **API测试失败**
+   ```bash
+   # 确保服务器运行
+   curl http://localhost:3000/api/health
+   ```
+
+4. **依赖安装失败**
+   ```bash
+   # 清理缓存重新安装
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
+## 📞 技术支持
+
+### 文档资源
+- [Dify集成指南](DIFY_INTEGRATION.md) - 详细的Dify配置说明
+- [完整配置说明](FINAL_SETUP.md) - 项目配置总结
+- [API测试脚本](test-dify-apis.js) - 自动化测试工具
+
+### 调试方法
+1. 查看服务器日志
+2. 使用API测试脚本验证
+3. 检查浏览器开发者工具
+4. 查看数据库状态
+
+## 🎯 下一步计划
+
+- [ ] 配置真实数据源 (WordPress + Strikingly)
+- [ ] 优化智能体提示词
+- [ ] 添加更多数据分析功能
+- [ ] 实现实时数据同步
+- [ ] 添加数据可视化功能
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+---
+
+**🎉 开始您的AI智能体之旅！**
