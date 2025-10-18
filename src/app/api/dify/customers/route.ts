@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     const where: {
       site?: { name: string };
       email?: { contains: string };
-      tags?: { has: string };
+      tags?: { contains: string };
       lifetimeValue?: { gte: number };
     } = {};
     
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     }
     
     if (tags) {
-      where.tags = { has: tags };
+      where.tags = { contains: tags };
     }
     
     if (minLifetimeValue) {
