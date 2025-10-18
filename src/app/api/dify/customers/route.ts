@@ -14,12 +14,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get('limit') || '50');
 
     // 构建查询条件
-    const where: {
-      site?: { name: string };
-      email?: { contains: string };
-      tags?: { has: string };
-      lifetimeValue?: { gte: number };
-    } = {};
+    const where: Record<string, unknown> = {};
     
     if (siteName) {
       where.site = { name: siteName };
