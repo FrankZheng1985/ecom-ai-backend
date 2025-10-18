@@ -147,13 +147,29 @@ WC_CONSUMER_SECRET="cs_your_actual_secret_here"
 ```
 
 ### Strikingly配置
-1. 登录Strikingly后台
-2. 进入设置 > 集成 > Webhooks
-3. 创建新的Webhook
-4. 设置URL: `http://localhost:3000/api/webhook/strikingly`
-5. 更新 `.env` 文件：
+由于Strikingly不支持Webhook，我们使用定期同步方式：
+
+1. **手动同步**：
+```bash
+# 同步Strikingly数据
+node sync-strikingly.js
+
+# 或者直接调用API
+curl "http://localhost:3000/api/sync/strikingly"
+```
+
+2. **定时同步**（推荐）：
+```bash
+# 每5分钟同步一次
+*/5 * * * * cd /path/to/ecom-ai-backend && node sync-strikingly.js
+
+# 每小时同步一次
+0 * * * * cd /path/to/ecom-ai-backend && node sync-strikingly.js
+```
+
+3. **环境变量**（可选）：
 ```env
-STRICKINGLY_WEBHOOK_SECRET="your_webhook_secret_here"
+STRICKINGLY_WEBHOOK_SECRET="sk_strikingly_webhook_2024_test"
 ```
 
 ## 🛠️ 故障排除
